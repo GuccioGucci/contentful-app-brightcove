@@ -11,7 +11,7 @@ describe('Config Screen component', () => {
     await mockSdk.app.onConfigure.mock.calls[0][0]();
 
     expect(
-      getByText('Welcome to your contentful app. This is your config page.')
+      getByText('The Brightcove app is a widget that allows editors to select video from their Brightcove account. Select or upload a file on Brightcove and designate the assets that you want your entry to reference.')
     ).toBeInTheDocument();
   });
 });
