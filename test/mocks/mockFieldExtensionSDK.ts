@@ -1,11 +1,25 @@
 import { FieldExtensionSDK } from '@contentful/field-editor-shared'
 
-const mockSdk: Pick<FieldExtensionSDK, 'parameters' | 'window' | 'dialogs'> = {
+const mockSdk: Pick<FieldExtensionSDK, 'parameters' | 'window' | 'dialogs' | 'field'> = {
   parameters: {
     instance: {},
     installation: {
       proxyUrl: 'http://example.com/api'
     }
+  },
+  field: {
+    id: 'video-id',
+    locale: 'en',
+    required: false,
+    type: 'something',
+    validations: [],
+    setValue: jest.fn(),
+    getValue: jest.fn(),
+    removeValue: jest.fn(),
+    onValueChanged: jest.fn(),
+    onIsDisabledChanged: jest.fn(),
+    setInvalid: jest.fn(),
+    onSchemaErrorsChanged: jest.fn(),
   },
   window: {
     updateHeight: jest.fn(),

@@ -1,37 +1,32 @@
-import React, { useEffect } from 'react';
-import { Button, Flex } from '@contentful/forma-36-react-components';
-import { FieldExtensionSDK } from '@contentful/app-sdk';
-import { AppInstallationParameters } from './ConfigScreen'
+import React, { useEffect } from 'react'
+import { Button, Flex } from '@contentful/forma-36-react-components'
+import { FieldExtensionSDK } from '@contentful/app-sdk'
+import { BrightcoveVideo } from '../types'
+import { useState } from 'react'
 
 interface FieldProps {
   sdk: FieldExtensionSDK;
 }
 
-type BrightcoveFolder = {
-  account_id: string
-  created_at: string
-  id: string
-  name: string
-  updated_at: string
-  video_count: number
-}
-
 const Field = ({ sdk }: FieldProps) => {
-  const { proxyUrl } = sdk.parameters.installation as unknown as AppInstallationParameters
+  const [ videoId, setVideoId ] = useState<string>()
 
   useEffect(() => {
     sdk.window.startAutoResizer();
 
+    // Handler for external field value changes (e.g. when multiple authors are working on the same entry).
+    sdk.field.onValueChanged(setVideoId);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  async function openVideoDialog() {
-    const folders: BrightcoveFolder = await fetch(`${ proxyUrl }/folders`).then(r => r.json())
-
+  function openVideoDialog() {
     sdk.dialogs.openCurrent({
       title: 'Choose a video',
-      parameters: {
-        folders
+    })
+    .then((video?: BrightcoveVideo) => {
+      if (video) {
+        sdk.field.setValue(video.id)
       }
     })
   }
@@ -40,8 +35,16 @@ const Field = ({ sdk }: FieldProps) => {
   // reuse Contentful's editor components
   // -> https://www.contentful.com/developers/docs/extensibility/field-editors/
   return (
-    <Flex marginTop="spacingXs" margin="spacingXs" alignItems="center">
-      <Button buttonType="muted" onClick={ openVideoDialog }>Choose Video</Button>
+    <Flex marginTop="spacingXs" margin="spacingXs" flexDirection="column">
+      {
+        videoId && (
+          <div>{ videoId }</div>
+        )
+      }
+
+      <Flex marginTop="spacingXs" alignItems="center">
+        <Button buttonType="muted" onClick={openVideoDialog}>Choose Video</Button>
+      </Flex>
     </Flex>
   );
 };

@@ -4,6 +4,7 @@ import Field from './Field';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import { mockFieldExtensionSDK } from '../../test/mocks/mockFieldExtensionSDK';
+import { BrightcoveVideo } from '../types';
 
 describe('Field component', () => {
 
@@ -12,25 +13,22 @@ describe('Field component', () => {
     expect(getByText('Choose Video')).toBeInTheDocument()
   });
 
-  it('Component text exists', async () => {
-    const scope = nock('http://example.com/api')
-      .defaultReplyHeaders({ 'access-control-allow-origin': '*' })
-      .get('/test').reply(200)
-      .get('/folders').reply(200, [{ id: '1234' }]);
+  it('Should open the "Choose Video" dialog when clicking on the button', async () => {
+    (mockFieldExtensionSDK.dialogs.openCurrent as jest.Mock).mockResolvedValue({
+      id: '1234',
+      name: '1. Video Name'
+    } as BrightcoveVideo)
 
-    (mockFieldExtensionSDK.dialogs.openCurrent as jest.Mock).mockResolvedValue('')
-
-    const { getByText } = render(<Field sdk={ mockFieldExtensionSDK } />)
+    const { getByText } = render(<Field sdk={mockFieldExtensionSDK} />)
 
     act(() => {
       fireEvent.click(getByText('Choose Video'))
     });
 
     await waitFor(() => expect(mockFieldExtensionSDK.dialogs.openCurrent).toBeCalledWith({
-      title: 'Choose a video',
-      parameters: {
-        folders: [{ id: '1234' }]
-      }
+      title: 'Choose a video'
     }))
+
+    await waitFor(() => expect(mockFieldExtensionSDK.field.setValue).toBeCalledWith('1234'))
   });
 });
