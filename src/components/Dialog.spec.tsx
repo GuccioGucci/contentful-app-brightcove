@@ -7,6 +7,25 @@ import { mockDialogExtensionSDK } from '../../test/mocks/mockDialogExtensionSDK'
 import { BrightcoveFolder, BrightcoveVideo } from '../types'
 
 describe('Dialog component', () => {
+  let apiScope: nock.Scope
+
+  beforeEach(() => {
+    apiScope = nock('http://example.com/api')
+      .defaultReplyHeaders({ 'access-control-allow-origin': '*' })
+      .get('/folders').reply(200, [
+        { id: '1234', name: '1. Folder Name' },
+        { id: 'abcd', name: '2. Folder Name' },
+      ] as BrightcoveFolder[])
+      .get('/folders/abcd/videos').reply(200, [
+        { id: '1', name: '1. Video Name', description: '1. Description', images: { thumbnail: { src: 'https://example.com/image.png' } } },
+        { id: '2', name: '2. Video Name', description: '2. Description', images: { thumbnail: { src: 'https://example.com/image.png' } } },
+      ] as BrightcoveVideo[])
+  })
+
+  afterEach(() => {
+    nock.cleanAll()
+  })
+
   it('should show a spinner while loading content', () => {
     const { getByTestId } = render(<Dialog sdk={ mockDialogExtensionSDK } />);
 
@@ -14,12 +33,6 @@ describe('Dialog component', () => {
   })
 
   it('should load folders and show then on the screen', async () => {
-    const scope = nock('http://example.com/api')
-      .defaultReplyHeaders({ 'access-control-allow-origin': '*' })
-      .get('/folders').reply(200, [
-        { id: '1234', name: '1. Folder Name' },
-        { id: 'abcd', name: '2. Folder Name' },
-      ] as BrightcoveFolder[])
 
     act(() => {
       render(<Dialog sdk={mockDialogExtensionSDK} />)
@@ -33,17 +46,6 @@ describe('Dialog component', () => {
   })
 
   it('should load videos when clicking on a folder', async () => {
-    const scope = nock('http://example.com/api')
-      .defaultReplyHeaders({ 'access-control-allow-origin': '*' })
-      .get('/folders').reply(200, [
-        { id: '1234', name: '1. Folder Name' },
-        { id: 'abcd', name: '2. Folder Name' },
-      ] as BrightcoveFolder[])
-      .get('/folders/abcd/videos').reply(200, [
-        { id: '1', name: '1. Video Name', description: '1. Description', images: { thumbnail: { src: 'https://example.com/image.png' } } },
-        { id: '2', name: '2. Video Name', description: '2. Description', images: { thumbnail: { src: 'https://example.com/image.png' } } },
-      ] as BrightcoveVideo[])
-
     act(() => {
       render(<Dialog sdk={mockDialogExtensionSDK} />)
     });
@@ -65,17 +67,6 @@ describe('Dialog component', () => {
   })
 
   it('should go back to folder list when user clicks on back button from the video list', async () => {
-    const scope = nock('http://example.com/api')
-      .defaultReplyHeaders({ 'access-control-allow-origin': '*' })
-      .get('/folders').reply(200, [
-        { id: '1234', name: '1. Folder Name' },
-        { id: 'abcd', name: '2. Folder Name' },
-      ] as BrightcoveFolder[])
-      .get('/folders/abcd/videos').reply(200, [
-        { id: '1', name: '1. Video Name', description: '1. Description', images: { thumbnail: { src: 'https://example.com/image.png' } } },
-        { id: '2', name: '2. Video Name', description: '2. Description', images: { thumbnail: { src: 'https://example.com/image.png' } } },
-      ] as BrightcoveVideo[])
-
     act(() => {
       render(<Dialog sdk={mockDialogExtensionSDK} />)
     });

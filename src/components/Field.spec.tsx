@@ -1,5 +1,4 @@
 import React from 'react';
-import nock from 'nock'
 import Field from './Field';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
