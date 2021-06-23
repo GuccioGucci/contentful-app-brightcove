@@ -25,7 +25,7 @@ import Dialog from './components/Dialog';
 
 import LocalhostWarning from './components/LocalhostWarning';
 
-if (process.env.NODE_ENV === 'development' && window.self === window.top) {
+if (window.self === window.top) {
   // You can remove this if block before deploying your app
   const root = document.getElementById('root');
   render(<LocalhostWarning />, root);
