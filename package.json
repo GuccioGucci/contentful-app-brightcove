@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@brightcove/react-player-loader": "^1.4.1",
     "@contentful/app-sdk": "^3.34.3",
     "@contentful/field-editor-single-line": "^0.14.1",
     "@contentful/field-editor-test-utils": "^0.11.1",

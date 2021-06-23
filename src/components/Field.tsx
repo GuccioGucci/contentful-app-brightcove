@@ -1,14 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Flex } from '@contentful/forma-36-react-components'
 import { FieldExtensionSDK } from '@contentful/app-sdk'
 import { BrightcoveVideo } from '../types'
-import { useState } from 'react'
+import { Brightcove } from './ui/Brightcove'
+import { AppInstallationParameters } from './ConfigScreen'
 
 interface FieldProps {
   sdk: FieldExtensionSDK;
 }
 
 const Field = ({ sdk }: FieldProps) => {
+  const { accountId, playerId } = sdk.parameters.installation as unknown as AppInstallationParameters
+
   const [ videoId, setVideoId ] = useState<string>()
 
   useEffect(() => {
@@ -36,10 +39,9 @@ const Field = ({ sdk }: FieldProps) => {
   // -> https://www.contentful.com/developers/docs/extensibility/field-editors/
   return (
     <Flex marginTop="spacingXs" margin="spacingXs" flexDirection="column">
+
       {
-        videoId && (
-          <div>{ videoId }</div>
-        )
+        videoId && <Brightcove accountId={accountId} playerId={playerId} videoId={videoId} />
       }
 
       <Flex marginTop="spacingXs" alignItems="center">

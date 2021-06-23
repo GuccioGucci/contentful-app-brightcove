@@ -11,7 +11,6 @@ interface DialogProps {
 }
 
 const Dialog = ({ sdk }: DialogProps) => {
-  // const { folders } = sdk.parameters.invocation as { folders: BrightcoveFolder[] }
   const { proxyUrl } = sdk.parameters.installation as unknown as AppInstallationParameters
 
   const [ videos, setVideos ] = useState<BrightcoveVideo[]>([])

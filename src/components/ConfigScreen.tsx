@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
-import { AppExtensionSDK } from '@contentful/app-sdk';
-import { Heading, Form, Paragraph, TextInput, FieldGroup, FormLabel } from '@contentful/forma-36-react-components';
-import { css } from 'emotion';
+import { useEffect, useState } from 'react'
+import { AppExtensionSDK } from '@contentful/app-sdk'
+import { Heading, Form, Paragraph, TextInput, FieldGroup, FormLabel } from '@contentful/forma-36-react-components'
+import { css } from 'emotion'
 
 export type AppInstallationParameters = {
   proxyUrl: string
+  accountId: string
+  playerId: string
 }
 
 type ConfigProps = {
@@ -42,35 +44,55 @@ margin-top: 2rem;
 margin-bottom: 2rem;
 `
 
-export default function Config({ sdk: { app } }: ConfigProps) {
+export default function Config({ sdk }: ConfigProps) {
   const [ proxyUrl, setProxyUrl ] = useState<string>('')
+  const [ accountId, setAccountId ] = useState<string>('')
+  const [ playerId, setPlayerId ] = useState<string>('')
 
   useEffect(() => {
     // `onConfigure` allows to configure a callback to be
     // invoked when a user attempts to install the app or update
     // its configuration.
-    app.onConfigure(() => ({
-      parameters: {
-        proxyUrl
+    sdk.app.onConfigure(() => {
+      if (proxyUrl === '') {
+        sdk.notifier.error('The field "Proxy URL" is required.')
+        return false
       }
-    }));
 
-  }, [app, proxyUrl])
+      if (!accountId) {
+        sdk.notifier.error('The field "Brightcove Account Id" is required.')
+        return false
+      }
+
+      return ({
+        parameters: {
+          proxyUrl,
+          accountId,
+          playerId
+        }
+      })
+    });
+
+  }, [sdk, proxyUrl, accountId, playerId])
 
   useEffect(() => {
     (async () => {
       // Get current parameters of the app.
       // If the app is not installed yet, `parameters` will be `null`.
-      const parameters: AppInstallationParameters | null = await app.getParameters();
-      
+      const parameters: AppInstallationParameters | null = await sdk.app.getParameters();
+
       if (parameters) {
         setProxyUrl(parameters.proxyUrl)
+        setAccountId(parameters.accountId)
+        setPlayerId(parameters.playerId)
       }
-      
-      app.setReady();
+
+      sdk.app.setReady();
     })()
-  }, [app])
-  
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <>
       <div className={ headerClassName } />
@@ -88,7 +110,17 @@ export default function Config({ sdk: { app } }: ConfigProps) {
              * https://player.support.brightcove.com/getting-started/learning-guide-using-rest-apis.html
              **/}
             <FormLabel htmlFor="proxyUrl" required>Proxy URL</FormLabel>
-            <TextInput required type="text" id="proxyUrl" name="proxyUrl" className="f36-margin-bottom--m" onChange={ (e) => setProxyUrl(e.currentTarget.value) } value={ proxyUrl } />
+            <TextInput required type="text" data-testid="proxyUrl" id="proxyUrl" name="proxyUrl" className="f36-margin-bottom--m" onChange={ (e) => setProxyUrl(e.currentTarget.value) } value={ proxyUrl } />
+          </FieldGroup>
+
+          <FieldGroup>
+            <FormLabel htmlFor="accountId" required>Brightcove Account Id</FormLabel>
+            <TextInput required type="text" data-testid="accountId" id="accountId" name="accountId" className="f36-margin-bottom--m" onChange={ (e) => setAccountId(e.currentTarget.value) } value={ accountId } />
+          </FieldGroup>
+
+          <FieldGroup>
+            <FormLabel htmlFor="playerId">Brightcove Player Id</FormLabel>
+            <TextInput type="text" data-testid="playerId" id="playerId" name="playerId" className="f36-margin-bottom--m" onChange={ (e) => setPlayerId(e.currentTarget.value) } value={ playerId } />
           </FieldGroup>
         </Form>
       </div>
