@@ -5,7 +5,7 @@
 
 ## Usage
 
-### Create your `AppDefinition`
+### Create an `AppDefinition`
 
 First of all you need to create a new `AppDefinition`.
 
@@ -23,15 +23,53 @@ Click on **Create app** when you are done filling in the details.
 
 ![App Definition](./public/contentful-app-definition.png)
 
-### Install your app
+### Install the app
 
-todo
+After you created the `AppDefinition`, the app should appear on the app listing page in the list of available apps.
 
-### Brightcove Proxy
+[Go to your app listing page](https://app.contentful.com/deeplink?link=apps)
 
-todo
+![Contentful App listing page](./public/contentful-app-listing-page.png)
+
+Click on the app and authorize the access.
+
+At this point you need to configure the application:
+
+* **Proxy URL**: this is the url for your Brighcove Proxy. Read more on the next chapter.
+
+* **Brightcove Account Id**: account id is used to display the video player in Contentful instead of the input text.
+
+* **Brightcove Player Id**: you can choose a custom Brightcove Player instead of the default one.
+
+
+![Contentful App Configuration](./public/contentful-install-app.png)
+
+Click the **Install** button to install your app.
+
+
+### Use the app
+
+The app is finally ready to be used!
+
+Create a new content model (or use an already existing one) and add a new `short text` field.  
+Click on `Create and configure`.
+
+![Contentful Content Model Appearance](./public/contentful-content-model-appearance.png)
+
+Selecting the `Appearance` tab you should be able to choose the new Brightcove app.  
+Click on `Confirm`.
+
+When you'll create a new Entry, you'll see the `Choose Video` button.
+
+![Contentful Content Usage](./public/contentful-content-usage.png)
+
+:tada:  You have done!
+
+## Brightcove Proxy
 
 https://github.com/BrightcoveLearning/sample-proxy-apps
+
+TODO:
 
 
 ## Development
