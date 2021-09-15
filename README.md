@@ -35,7 +35,7 @@ Click on the app and authorize the access.
 
 At this point you need to configure the application:
 
-* **Proxy URL**: this is the url for your Brighcove Proxy. Read more on the next chapter.
+* **Proxy URL**: this is the url for your Brightcove Proxy. Read more on the next chapter.
 
 * **Brightcove Account Id**: account id is used to display the video player in Contentful instead of the input text.
 
@@ -67,9 +67,16 @@ When you'll create a new Entry, you'll see the `Choose Video` button.
 
 ## Brightcove Proxy
 
-https://github.com/BrightcoveLearning/sample-proxy-apps
+### Introduction
 
-TODO:
+The Brightcove Platform APIs are generally not CORS-enabled, meaning that you cannot access them directly from a web app.
+
+To get around this, all you need to do is route the API requests through a server-side app often called a proxy.  
+The proxy takes the request from a web page via JavaScript, gets an access token, makes the API request, and then returns the response to the calling page.
+
+![Proxy Architecture](./public/proxy-architecture.svg)
+
+> source: *https://github.com/BrightcoveLearning/sample-proxy-apps*
 
 
 ## Development

@@ -1,0 +1,21 @@
+{
+  "name": "expressjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node -r dotenv/config index.mjs"
+  },
+  "keywords": [],
+  "author": "Gucci <npm@gucci.com>",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "node-fetch": "^3.0.0"
+  },
+  "engines": {
+    "node": ">= 16"
+  }
+}
