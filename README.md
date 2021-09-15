@@ -3,7 +3,9 @@
 ![Contentful Application](https://shields.io/badge/contentful-application-51BCEA?logo=contentful&logoColor=white)
 [![Test](https://github.com/GuccioGucci/contentful-app-brightcove/actions/workflows/test.yml/badge.svg)](https://github.com/GuccioGucci/contentful-app-brightcove/actions/workflows/test.yml)
 
-## Usage
+![Brightcove App](./public/brightcove-app.gif)
+
+## Setup
 
 ### Create an `AppDefinition`
 
@@ -119,3 +121,9 @@ To make your app look and feel like Contentful use the following libraries:
 [Read more](https://www.contentful.com/developers/docs/extensibility/app-framework/create-contentful-app/) and check out the video on how to use the CLI.
 
 Create Contentful App uses [Create React App](https://create-react-app.dev/). You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started) and how to further customize your app.
+
+## License
+
+Copyright 2021 Gucci.
+
+Licensed under the [GNU Lesser General Public License, Version 3.0](http://www.gnu.org/licenses/lgpl.txt)
