@@ -1,5 +1,6 @@
 import fetch from 'node-fetch'
 import express from 'express'
+import cors from 'cors'
 
 const app = express()
 const port = 5001
@@ -21,6 +22,11 @@ function getAccessToken(clientId, clientSecret) {
   }).then((response) => response.json())
 }
 
+app.use(cors({
+  origin: process.env.NODE_ENV === 'development' ? 'http://localhost:5001' : 'https://gucciogucci.github.io',
+  methods: 'GET'
+}))
+
 app.get('/proxy/*', async (req, res) => {
 
   const { access_token, token_type } = await getAccessToken(process.env.BRIGHTCOVE_CLIENT_ID, process.env.BRIGHTCOVE_CLIENT_SECRET)
@@ -33,11 +39,6 @@ app.get('/proxy/*', async (req, res) => {
     }
   )
 
-  res.setHeader('Access-Control-Allow-Origin', process.env.NODE_ENV === 'development' ? 'http://localhost:5001' : 'https://gucciogucci.github.io')
-  res.setHeader('Access-Control-Request-Method', 'GET')
-  res.setHeader('Content-Security-Policy', 'none')
-  res.setHeader('Content-Type', 'application/json')
-  res.setHeader('X-Content-Type-Options', 'nosniff')
   res.json(await response.json())
 })
 
