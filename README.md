@@ -78,6 +78,10 @@ The proxy takes the request from a web page via JavaScript, gets an access token
 
 > source: *https://github.com/BrightcoveLearning/sample-proxy-apps*
 
+### Examples
+
+Checkout the [brightcove-proxy](./brightcove-proxy/) folder to understand how to build your own proxy.
+
 
 ## Development
 
