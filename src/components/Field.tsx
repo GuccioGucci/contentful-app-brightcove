@@ -34,6 +34,10 @@ const Field = ({ sdk }: FieldProps) => {
     })
   }
 
+  function removeFieldValue() {
+    sdk.field.removeValue()
+  }
+
   // If you only want to extend Contentful's default editing experience
   // reuse Contentful's editor components
   // -> https://www.contentful.com/developers/docs/extensibility/field-editors/
@@ -45,7 +49,8 @@ const Field = ({ sdk }: FieldProps) => {
       }
 
       <Flex marginTop="spacingXs" alignItems="center">
-        <Button buttonType="muted" onClick={openVideoDialog}>Choose Video</Button>
+        <Button data-testid="choose-video" buttonType="muted" onClick={openVideoDialog}>Choose Video</Button>
+        { sdk.field.getValue() && <Button data-testid="clean" buttonType="muted" onClick={removeFieldValue} style={{ marginLeft: '5px' }}>Clean</Button> }
       </Flex>
     </Flex>
   );

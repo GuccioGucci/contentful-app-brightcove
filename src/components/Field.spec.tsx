@@ -8,8 +8,8 @@ import { BrightcoveVideo } from '../types';
 describe('Field component', () => {
 
   it('Component text exists', () => {
-    const { getByText } = render(<Field sdk={ mockFieldExtensionSDK } />)
-    expect(getByText('Choose Video')).toBeInTheDocument()
+    const { getByTestId } = render(<Field sdk={ mockFieldExtensionSDK } />)
+    expect(getByTestId('choose-video')).toBeInTheDocument()
   });
 
   it('Should open the "Choose Video" dialog when clicking on the button', async () => {
@@ -18,10 +18,10 @@ describe('Field component', () => {
       name: '1. Video Name'
     } as BrightcoveVideo)
 
-    const { getByText } = render(<Field sdk={mockFieldExtensionSDK} />)
+    const { getByTestId, findByTestId } = render(<Field sdk={mockFieldExtensionSDK} />)
 
     act(() => {
-      fireEvent.click(getByText('Choose Video'))
+      fireEvent.click(getByTestId('choose-video'))
     });
 
     await waitFor(() => expect(mockFieldExtensionSDK.dialogs.openCurrent).toBeCalledWith({
@@ -29,5 +29,19 @@ describe('Field component', () => {
     }))
 
     await waitFor(() => expect(mockFieldExtensionSDK.field.setValue).toBeCalledWith('1234'))
+  });
+
+  it('Should clean the value field when click on "Clean"', async () => {
+    (mockFieldExtensionSDK.field.getValue as jest.Mock).mockReturnValue('1234')
+
+    const { getByTestId } = render(<Field sdk={mockFieldExtensionSDK} />)
+
+    await waitFor(() => expect(getByTestId('clean')).toBeInTheDocument())
+
+    act(() => {
+      fireEvent.click(getByTestId('clean'))
+    })
+
+    await waitFor(() => expect(mockFieldExtensionSDK.field.removeValue).toBeCalled())
   });
 });
