@@ -23,7 +23,7 @@ function getAccessToken(clientId, clientSecret) {
 }
 
 app.use(cors({
-  origin: process.env.NODE_ENV === 'development' ? 'http://localhost:5001' : 'https://gucciogucci.github.io',
+  origin: process.env.NODE_ENV === 'production' ? 'https://gucciogucci.github.io' : 'http://localhost:5000',
   methods: 'GET'
 }))
 
