@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "cross-env BROWSER=none PORT=5000 react-scripts start",
-    "build": "react-scripts build",
+    "build": "node scripts/build.js",
     "test": "react-scripts test --coverage"
   },
   "eslintConfig": {

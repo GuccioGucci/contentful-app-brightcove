@@ -3,7 +3,7 @@
 ![Contentful Application](https://shields.io/badge/contentful-application-51BCEA?logo=contentful&logoColor=white)
 [![Test](https://github.com/GuccioGucci/contentful-app-brightcove/actions/workflows/test.yml/badge.svg)](https://github.com/GuccioGucci/contentful-app-brightcove/actions/workflows/test.yml)
 
-![Brightcove App](./public/brightcove-app.gif)
+![Brightcove App](./docs/brightcove-app.gif)
 
 ## Setup
 
@@ -23,7 +23,7 @@ Click on **Create an app** and you will be redirected to a page where you can pr
 
 Click on **Create app** when you are done filling in the details.
 
-![App Definition](./public/contentful-app-definition.png)
+![App Definition](./docs/contentful-app-definition.png)
 
 ### Install the app
 
@@ -31,7 +31,7 @@ After you created the `AppDefinition`, the app should appear on the app listing 
 
 [Go to your app listing page](https://app.contentful.com/deeplink?link=apps)
 
-![Contentful App listing page](./public/contentful-app-listing-page.png)
+![Contentful App listing page](./docs/contentful-app-listing-page.png)
 
 Click on the app and authorize the access.
 
@@ -44,7 +44,7 @@ At this point you need to configure the application:
 * **Brightcove Player Id**: you can choose a custom Brightcove Player instead of the default one.
 
 
-![Contentful App Configuration](./public/contentful-install-app.png)
+![Contentful App Configuration](./docs/contentful-install-app.png)
 
 Click the **Install** button to install your app.
 
@@ -56,14 +56,14 @@ The app is finally ready to be used!
 Create a new content model (or use an already existing one) and add a new `short text` field.  
 Click on `Create and configure`.
 
-![Contentful Content Model Appearance](./public/contentful-content-model-appearance.png)
+![Contentful Content Model Appearance](./docs/contentful-content-model-appearance.png)
 
 Selecting the `Appearance` tab you should be able to choose the new Brightcove app.  
 Click on `Confirm`.
 
 When you'll create a new Entry, you'll see the `Choose Video` button.
 
-![Contentful Content Usage](./public/contentful-content-usage.png)
+![Contentful Content Usage](./docs/contentful-content-usage.png)
 
 :tada:  You have done!
 
@@ -76,7 +76,7 @@ The Brightcove Platform APIs are generally not CORS-enabled, meaning that you ca
 To get around this, all you need to do is route the API requests through a server-side app often called a proxy.  
 The proxy takes the request from a web page via JavaScript, gets an access token, makes the API request, and then returns the response to the calling page.
 
-![Proxy Architecture](./public/proxy-architecture.svg)
+![Proxy Architecture](./docs/proxy-architecture.svg)
 
 > source: *https://github.com/BrightcoveLearning/sample-proxy-apps*
 
