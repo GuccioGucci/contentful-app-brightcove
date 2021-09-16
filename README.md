@@ -17,7 +17,9 @@ Click on **Create an app** and you will be redirected to a page where you can pr
 
 1. Provide a name for your app. This can be whatever you want, we chose **Brightcove**.
 
-1. Enter the app url. This should be set to https://gucciogucci.github.io/contentful-app-brightcove
+1. Enter the app url. This should be set to https://gucciogucci.github.io/contentful-app-brightcove/
+
+    *:warning:  If you prefer to freeze the version number to avoid breaking changes, you can add the version number at the end of the above url: https://gucciogucci.github.io/contentful-app-brightcove/v0.2.0/*
 
 1. Specify the app locations. Select **App configuration screen** and **Entry field - Short text**.
 
