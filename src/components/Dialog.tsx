@@ -104,7 +104,7 @@ const Dialog = ({ sdk }: DialogProps) => {
                   className={css`cursor: pointer;`}
                   title={video.name}
                   description={video.description}
-                  thumbnailUrl={video.images.thumbnail.src}
+                  thumbnailUrl={video.images.thumbnail?.src}
                   onClick={() => sdk.close(video)}
                 />
               ))
