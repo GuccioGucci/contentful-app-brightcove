@@ -7,6 +7,17 @@ export type BrightcoveFolder = {
   video_count: number
 }
 
+type Source = {
+  src: string
+  height: number
+  width: number
+}
+
+type Image = {
+  src: string
+  sources: Source[]
+}
+
 export type BrightcoveVideo = {
   account_id: string
   created_at: string
@@ -19,11 +30,7 @@ export type BrightcoveVideo = {
   tags: string[]
   duration: number
   images: {
-    poster: {
-      src: string
-    }
-    thumbnail: {
-      src: string
-    }
+    poster?: Image
+    thumbnail?: Image
   }
 }
