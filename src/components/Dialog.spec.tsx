@@ -17,7 +17,7 @@ describe('Dialog component', () => {
         { id: 'abcd', name: '2. Folder Name' },
       ] as BrightcoveFolder[])
       .get('/folders/abcd/videos').reply(200, [
-        { id: '1', name: '1. Video Name', description: '1. Description', images: { thumbnail: { src: 'https://example.com/image.png' } } },
+        { id: '1', name: '1. Video Name', description: '1. Description', images: {} },
         { id: '2', name: '2. Video Name', description: '2. Description', images: { thumbnail: { src: 'https://example.com/image.png' } } },
       ] as BrightcoveVideo[])
   })
